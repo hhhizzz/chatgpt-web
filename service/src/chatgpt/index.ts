@@ -1,11 +1,11 @@
 import * as dotenv from 'dotenv'
 import 'isomorphic-fetch'
-import type { ChatGPTAPIOptions, ChatMessage, SendMessageOptions } from 'chatgpt'
-import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from 'chatgpt'
 import { SocksProxyAgent } from 'socks-proxy-agent'
 import httpsProxyAgent from 'https-proxy-agent'
 import fetch from 'node-fetch'
 import axios from 'axios'
+import type { ChatGPTAPIOptions, ChatMessage, SendMessageOptions } from '../chatgpt-api'
+import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from '../chatgpt-api'
 import { sendResponse } from '../utils'
 import { isNotEmptyString } from '../utils/is'
 import type { ApiModel, ChatContext, ChatGPTUnofficialProxyAPIOptions, ModelConfig } from '../types'
@@ -61,7 +61,7 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
     }
 
     if (isNotEmptyString(OPENAI_API_BASE_URL))
-      options.apiBaseUrl = `${OPENAI_API_BASE_URL}/v1`
+      options.apiBaseUrl = `${OPENAI_API_BASE_URL}`
 
     setupProxy(options)
 
@@ -134,7 +134,7 @@ async function fetchBalance() {
     : 'https://api.openai.com'
 
   try {
-    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${OPENAI_API_KEY}` }
+    const headers = { 'Content-Type': 'application/json', 'api-key': `${OPENAI_API_KEY}` }
     const response = await axios.get(`${API_BASE_URL}/dashboard/billing/credit_grants`, { headers })
     const balance = response.data.total_available ?? 0
     return Promise.resolve(balance.toFixed(3))

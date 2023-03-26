@@ -1,4 +1,4 @@
-import type { ChatMessage } from 'chatgpt'
+import type { ChatMessage } from '../chatgpt-api'
 
 export interface RequestOptions {
   message: string
