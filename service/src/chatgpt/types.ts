@@ -5,8 +5,14 @@ export interface RequestOptions {
   lastContext?: { conversationId?: string; parentMessageId?: string }
   process?: (chat: ChatMessage) => void
   systemMessage?: string
+  temperature?: number
+  top_p?: number
 }
 
-export interface BalanceResponse {
+export interface SetProxyOptions {
+  fetch?: typeof fetch
+}
+
+export interface UsageResponse {
   total_usage: number
 }
