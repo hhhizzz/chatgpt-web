@@ -1,4 +1,5 @@
 import { ss } from '@/utils/storage'
+import { msalInstance } from '@/router/auth'
 
 const LOCAL_NAME = 'userStorage'
 
@@ -16,7 +17,7 @@ export function defaultSetting(): UserState {
   return {
     userInfo: {
       avatar: 'https://raw.githubusercontent.com/Chanzhaoyu/chatgpt-web/main/src/assets/avatar.jpg',
-      name: 'ChenZhaoYu',
+      name: msalInstance.getAccount().name,
       description: 'Star on <a href="https://github.com/Chanzhaoyu/chatgpt-bot" class="text-blue-500" target="_blank" >Github</a>',
     },
   }

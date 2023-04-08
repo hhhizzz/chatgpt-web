@@ -1,7 +1,15 @@
 import type { Router } from 'vue-router'
+import { loginRequest, msalInstance } from './auth'
 import { useAuthStoreWithout } from '@/store/modules/auth'
 
 export function setupPageGuard(router: Router) {
+  function ensureAuthenticated(to, from, next) {
+    if (msalInstance.getAccount())
+      next()
+    else
+      msalInstance.loginRedirect(loginRequest)
+  }
+
   router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStoreWithout()
     if (!authStore.session) {
@@ -22,7 +30,7 @@ export function setupPageGuard(router: Router) {
       }
     }
     else {
-      next()
+      ensureAuthenticated(to, from, next)
     }
   })
 }

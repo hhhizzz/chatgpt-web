@@ -8,6 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { logout } from '@/router/auth'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -67,6 +68,7 @@ function updateUserInfo(options: Partial<UserInfo>) {
 function handleReset() {
   userStore.resetUserInfo()
   ms.success(t('common.success'))
+  logout()
   window.location.reload()
 }
 
