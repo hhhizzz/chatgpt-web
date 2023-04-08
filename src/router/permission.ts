@@ -20,13 +20,13 @@ export function setupPageGuard(router: Router) {
         if (to.path === '/500')
           next({ name: 'Root' })
         else
-          next()
+          ensureAuthenticated(to, from, next)
       }
       catch (error) {
         if (to.path !== '/500')
           next({ name: '500' })
         else
-          next()
+          ensureAuthenticated(to, from, next)
       }
     }
     else {
