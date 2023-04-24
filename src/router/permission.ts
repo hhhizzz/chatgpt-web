@@ -1,9 +1,9 @@
-import type { Router } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router'
 import { loginRequest, msalInstance } from './auth'
 import { useAuthStoreWithout } from '@/store/modules/auth'
 
 export function setupPageGuard(router: Router) {
-  function ensureAuthenticated(to, from, next) {
+  function ensureAuthenticated(_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) {
     if (msalInstance.getAccount())
       next()
     else
